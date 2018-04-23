@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  level: 1
+  description: MyString
+  recommendation: MyString
+  subcategory_id: 1
+
+two:
+  level: 1
+  description: MyString
+  recommendation: MyString
+  subcategory_id: 1

@@ -1,0 +1,2 @@
+class RolesSubcategory < ApplicationRecord
+end

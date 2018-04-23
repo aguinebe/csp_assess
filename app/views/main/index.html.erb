@@ -1,0 +1,20 @@
+
+
+<script src="http://localhost/javascripts/api/tableau-2.js"></script>
+
+<div id="vizContainer"></div>
+
+<script>
+
+var viz
+
+function initViz() {
+    var containerDiv = document.getElementById("vizContainer"),
+    url = "http://localhost/views/Assessment/Start?refresh=yes";
+        
+    viz = new tableau.Viz(containerDiv, url); 
+}
+
+initViz()
+
+</script>

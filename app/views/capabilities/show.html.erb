@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @capability.level %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @capability.description %>
+</p>
+
+<p>
+  <strong>Recommendation:</strong>
+  <%= @capability.recommendation %>
+</p>
+
+<p>
+  <strong>Subcategory:</strong>
+  <%= @capability.subcategory_id %>
+</p>
+
+<%= link_to 'Edit', edit_capability_path(@capability) %> |
+<%= link_to 'Back', capabilities_path %>

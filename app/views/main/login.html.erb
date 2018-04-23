@@ -1,0 +1,18 @@
+
+<% if @success then %>
+
+<p style="color:green">
+Succesfully logged in the CSP form as
+<h2 style="color:green"><%=@username%></h2>
+</p>
+
+<% else %>
+
+<p style="color:red">
+Login failure!
+Go to the "Start" tab, refresh the viz, then click on login again
+</p>
+
+<% end %>
+
+<%= @elapsedtime %> seconds elapsed between the login viz refresh and this login attempt.

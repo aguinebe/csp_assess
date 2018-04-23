@@ -1,0 +1,70 @@
+
+<%= form_tag( "/set", method: "post" ) do %>
+
+	<h4><%=@newcap.subcategory.question%></h4>
+
+	<p/>
+	Answer:
+	<br/>
+		<%= text_area_tag( :answer, @newcap.answer, :cols => 65, :rows => 10 ) %>
+		<%= hidden_field_tag( :id, @newcap.id ) %>
+	<p/>
+
+<%= submit_tag( "Save" ) %>
+
+<p/>
+
+	Level achieved:
+	<br/>
+	<% @capabilities.each do |c| %>
+		<p/>
+		<%=radio_button_tag "capability_id", c.id, @newcap.capability_id == c.id%>
+		<b>Level <%=c.level%></b>: <%=c.description%>
+	<% end %>
+
+	<p/>
+	Recommendation:
+	<br/>
+		<%= text_area_tag( :recommendation, @newcap.recommendation, :cols => 65, :rows => 10 ) %>
+	<p/>
+
+	<p/>
+	Next step:
+	</br>
+
+	<%= date_field_tag( :nextstepdate, @newcap.nextstepdate ) %>
+	<br/>
+	<%= text_area_tag( :nextstepdesc, @newcap.nextstepdesc, :cols => 50, :rows => 5 ) %>
+	<%= hidden_field_tag( :id, @newcap.id ) %>
+	<br/>
+	
+	<%= submit_tag( "Save" ) %>
+
+<% end %>
+
+<% if @refreshviz %>
+
+<script src="http://localhost/javascripts/api/tableau-2.js"></script>
+
+<script>
+	window.top.viz.refreshDataAsync()
+</script>
+
+<% end %>
+
+<p style="color:green">Logged in as <b><%=@username%></b></p>
+
+<table>
+	<tr>
+		<td>Plan name:</td><td><%=@newcap.plan%></td>
+		<td>Group:</td><td><%=@newcap.groupname%></td>
+	</tr>
+	<tr>
+		<td>Facilitator:</td><td><%=@newcap.facilitator%></td>
+		<td>Customer name:</td><td><%=@newcap.customer_name%></td>
+	</tr>
+	<tr>
+		<td>Category:</td><td><%=@newcap.subcategory.category.name%></td>
+		<td>Subcategory:</td><td><%=@newcap.subcategory.name%></td>
+	</tr>
+</table>

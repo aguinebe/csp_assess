@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Capabilities</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Level</th>
+      <th>Description</th>
+      <th>Recommendation</th>
+      <th>Subcategory</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @capabilities.each do |capability| %>
+      <tr>
+        <td><%= capability.level %></td>
+        <td><%= capability.description %></td>
+        <td><%= capability.recommendation %></td>
+        <td><%= capability.subcategory_id %></td>
+        <td><%= link_to 'Show', capability %></td>
+        <td><%= link_to 'Edit', edit_capability_path(capability) %></td>
+        <td><%= link_to 'Destroy', capability, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Capability', new_capability_path %>
