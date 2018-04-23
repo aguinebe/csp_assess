@@ -13,7 +13,7 @@ class MainController < ApplicationController
 			@username = session[ :username ]
 		end
 	end
-	
+
 	def howtologin
 	end
 
@@ -100,7 +100,7 @@ class MainController < ApplicationController
 		digest = Digest::SHA1.hexdigest @username + "_" + dt + "_" + phrase
 		@success = ( key == digest )
 
-		@parseddate = DateTime.strptime( dt, '%Y-%m-%dT%H:%M:%S %Z' )
+		@parseddate = DateTime.strptime( dt, '%Y-%m-%dT%H:%M:%S.%f %Z' )
 		@elapsedtime = (( @now - @parseddate )).to_i
 
 		@success = @success && ( @elapsedtime < 10 )
