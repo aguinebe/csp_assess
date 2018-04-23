@@ -91,7 +91,7 @@ class MainController < ApplicationController
 		dt = params[ :dt ]
 		key = params[ :key ]
 
-		sql = "Select now() as timestamp, phrase from logins"
+		sql = "Select CURRENT_TIMESTAMP as timestamp, phrase from logins"
 		records_array = Login.connection.select_all( sql ).to_hash
 
 		@now = records_array[0][ "timestamp" ]
