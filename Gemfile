@@ -48,9 +48,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-group :production do
-	gem 'pg'
-end
+gem 'pg'
 
 gem 'mysql2'
 gem 'activerecord-session_store'

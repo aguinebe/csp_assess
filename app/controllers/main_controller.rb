@@ -100,7 +100,18 @@ class MainController < ApplicationController
 		digest = Digest::SHA1.hexdigest @username + "_" + dt + "_" + phrase
 		@success = ( key == digest )
 
-		@parseddate = DateTime.strptime( dt, '%Y-%m-%dT%H:%M:%S.%f%Z' )
+		@parseddate = DateTime.strptime( dt, '%Y-%m-%dT%H:%M:%S %Z' )
+
+		@now = DateTime.parse( @now )
+
+		puts phrase
+		puts key
+		puts digest
+
+		puts @success
+		puts @now
+		puts @parseddate
+
 		@elapsedtime = (( @now - @parseddate )).to_i
 
 		@success = @success && ( @elapsedtime < 10 )

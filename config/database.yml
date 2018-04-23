@@ -5,16 +5,15 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: mysql2
-  host: localhost
-  database: csp_assess
-  username: root
+  adapter: postgresql
+  host: <%= ENV['DATABASE_HOST'] %>
+  database: <%= ENV['DATABASE_DATABASE'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
-  port: 3306
+  port: 5432
 
 development:
   <<: *default
-  database: csp_assess
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
