@@ -10,7 +10,12 @@ var viz
 
 function initViz() {
     var containerDiv = document.getElementById("vizContainer"),
-    url = "https://alpo/views/CSP_Assess/Start?refresh=yes";
+
+    <% if Rails.env.development? %>
+    	url = "http://localhost/views/CSP_Assess/Start?refresh=yes&server=dev";
+    <% else %> 
+    	url = "https://alpo/views/CSP_Assess/Start?refresh=yes&server=prod";
+    <% end %>
         
     viz = new tableau.Viz(containerDiv, url); 
 }

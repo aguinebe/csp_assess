@@ -12,8 +12,14 @@
 
 <%= submit_tag( "Save" ) %>
 
-<p/>
+	<p/>
 
+	Priority:
+	<% [ "High", "Medium", "Low" ].each_with_index do |p,i| %>
+		<br/><%=radio_button_tag "priority", i, @newcap.priority == i%> <%=p%>
+	<% end %>
+
+	<p/>
 	Level achieved:
 	<br/>
 	<% @capabilities.each do |c| %>
@@ -44,7 +50,11 @@
 
 <% if @refreshviz %>
 
-<script src="http://localhost/javascripts/api/tableau-2.js"></script>
+<% if Rails.env.development? %>
+	<script src="http://localhost/javascripts/api/tableau-2.js"></script>
+<% else %> 
+	<script src="https://alpo/javascripts/api/tableau-2.js"></script>
+<% end %>
 
 <script>
 	window.top.viz.refreshDataAsync()

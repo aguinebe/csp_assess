@@ -1,0 +1,15 @@
+
+<% if Rails.env.development? %>
+	<script src="http://localhost/javascripts/api/tableau-2.js"></script>
+<% else %> 
+	<script src="https://alpo/javascripts/api/tableau-2.js"></script>
+<% end %>
+
+<script>
+	wb = window.top.viz.getWorkbook();
+	wb.changeParameterValueAsync( "Plan", "<%= @plan %>" );
+	wb.changeParameterValueAsync( "Group", "<%= @group %>" );
+	wb.changeParameterValueAsync( "Interviewee", "<%= @interviewee %>" );
+	wb.changeParameterValueAsync( "Interviewer", "<%= @interviewer %>" );
+</script>
+

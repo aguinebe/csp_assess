@@ -85,6 +85,13 @@ class MainController < ApplicationController
 
 	end
 
+	def continue
+		@plan = params[ :plan ]
+		@group = params[ :group ]
+		@interviewer = params[ :ier ]
+		@interviewee = params[ :iee ]
+	end
+
 	def login
 		@username = params[ :username ]
 
@@ -125,6 +132,6 @@ class MainController < ApplicationController
 
 	private
 		def plancapability_params
-	      params.permit( :id, :recommendation, :nextstepdate, :nextstepdesc, :answer, :subcategory_id, :capability_id )
+	      params.permit( :id, :recommendation, :priority, :nextstepdate, :nextstepdesc, :answer, :subcategory_id, :capability_id )
 	    end
 	end
