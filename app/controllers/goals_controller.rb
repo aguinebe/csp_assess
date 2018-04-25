@@ -2,7 +2,9 @@ class GoalsController < ApplicationController
   before_action :set_goal, only: [:show, :edit, :update, :destroy]
 
   before_action :authorize
-
+  before_action :allow_iframe_requests
+  before_action :set_cache_headers
+  
   def authorize
     if session[ :username ].nil? then
       raise ApplicationController::NotAuthorized

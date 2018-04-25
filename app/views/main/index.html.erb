@@ -6,7 +6,52 @@
 
 <script>
 
-var viz
+var viz;
+var logindata;
+
+function autoLogin() {
+	var worksheet;
+
+	viz.getWorkbook().activateSheetAsync( "Start" ).then(function ( sheet ) {
+		worksheet = sheet;
+	})
+	// Single dimensions work just like filtering
+	// Single dimension - single value
+	.then(function () {
+
+		// alert( "Activated start" );
+		sheets = worksheet.getWorksheets();
+		// alert( sheets );
+		for( var i in sheets ) {
+			// alert( sheets[ i ].getName() );
+			if( sheets[ i ].getName() == "Login" ) {
+				// alert( "Found login" );
+				sheets[ i ].getSummaryDataAsync().then( function (dt) {
+					logindata = dt.getData();
+					datetime = logindata[ 0 ][ 0 ][ "value" ]
+					username = logindata[ 0 ][ 2 ][ "value" ]
+					key = logindata[ 0 ][ 1 ][ "value" ]
+					// alert( datetime + "_" + username + "_" + key )
+					var xhr = new XMLHttpRequest();
+					xhr.open( "GET", "/login?dt=" + datetime + "&username=" + username + "&key=" + key, true );
+					xhr.onload = function (e) {
+					  if (xhr.readyState === 4) {
+					    if (xhr.status === 200) {
+					      console.log(xhr.responseText);
+					    } else {
+					      console.error(xhr.statusText);
+					    }
+					  }
+					};
+					xhr.onerror = function (e) {
+					  console.error(xhr.statusText);
+					};
+					xhr.send(null);
+				})
+			}
+		}
+	})
+}
 
 function initViz() {
     var containerDiv = document.getElementById("vizContainer"),
@@ -17,7 +62,15 @@ function initViz() {
     	url = "https://alpo/views/CSP_Assess/Start?refresh=yes&server=prod";
     <% end %>
         
-    viz = new tableau.Viz(containerDiv, url); 
+    vizoptions = {
+ 		onFirstInteractive: function () {
+ 			// alert( "First interactive" );
+            autoLogin()
+        }
+    }
+
+    viz = new tableau.Viz(containerDiv, url, vizoptions );
+
 }
 
 initViz()

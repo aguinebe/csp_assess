@@ -17,16 +17,6 @@ class MainController < ApplicationController
 	def howtologin
 	end
 
-	def set_cache_headers
-		response.headers["Cache-Control"] = "no-cache, no-store"
-		response.headers["Pragma"] = "no-cache"
-		response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
-	end
-
-	def allow_iframe_requests
-	  response.headers.delete('X-Frame-Options')
-	end
-
 	def deleteplan
 		PlanCapability.where( plan: params[:plan] ).destroy_all
 	end
@@ -127,6 +117,9 @@ class MainController < ApplicationController
 			session[ :username ] = @username
 		else
 			session[ :username ] = nil
+			puts "Elapsed time: " + @elapsedtime
+			puts "Internal key external key: " + key + " " + digest
+			raise ApplicationController::NotAuthorized
 		end
 	end
 

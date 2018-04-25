@@ -1,8 +1,10 @@
 class SubcategoriesController < ApplicationController
   before_action :set_subcategory, only: [:show, :edit, :update, :destroy]
 
-  before_action :authorize
+  before_action :allow_iframe_requests
+  before_action :set_cache_headers
 
+  
   def authorize
     if session[ :username ].nil? then
       raise ApplicationController::NotAuthorized
@@ -14,7 +16,7 @@ class SubcategoriesController < ApplicationController
   # GET /subcategories
   # GET /subcategories.json
   def index
-    @subcategories = Subcategory.all
+    @subcategories = Subcategory.all.order( :category_id, :id )
   end
 
   # GET /subcategories/1
@@ -79,6 +81,6 @@ class SubcategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def subcategory_params
-      params.require(:subcategory).permit(:name, :category_id)
+      params.require(:subcategory).permit(:name, :category_id,:checklist,:question)
     end
 end

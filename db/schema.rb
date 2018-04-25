@@ -10,38 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180423154732) do
+ActiveRecord::Schema.define(version: 20180425185112) do
 
-  create_table "capabilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "pgcrypto"
+
+  create_table "capabilities", force: :cascade do |t|
     t.integer "level"
-    t.string "description", limit: 1024
-    t.string "recommendation", limit: 1024
+    t.string "description"
+    t.string "recommendation"
     t.integer "subcategory_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "highlevelreco"
   end
 
-  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "categories", force: :cascade do |t|
     t.string "name"
     t.integer "goal_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "goals", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "goals", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "logins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "links", force: :cascade do |t|
+    t.string "name"
+    t.string "relativepath"
+    t.string "absolutepath"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "logins", force: :cascade do |t|
     t.string "phrase"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "plan_capabilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "plan_capabilities", force: :cascade do |t|
     t.string "plan"
     t.integer "subcategory_id"
     t.datetime "created_at", null: false
@@ -59,26 +71,27 @@ ActiveRecord::Schema.define(version: 20180423154732) do
     t.string "tableauuserid"
   end
 
-  create_table "roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "roles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "roles_subcategories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "roles_subcategories", force: :cascade do |t|
     t.integer "role_id"
     t.integer "subcategory_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "subcategories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "subcategories", force: :cascade do |t|
     t.string "name"
     t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "question"
     t.text "default_recommendation"
+    t.boolean "checklist"
   end
 
 end

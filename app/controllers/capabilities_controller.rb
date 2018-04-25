@@ -2,6 +2,8 @@ class CapabilitiesController < ApplicationController
   before_action :set_capability, only: [:show, :edit, :update, :destroy]
 
   before_action :authorize
+  before_action :allow_iframe_requests
+  before_action :set_cache_headers
 
   def authorize
     if session[ :username ].nil? then
@@ -14,7 +16,7 @@ class CapabilitiesController < ApplicationController
   # GET /capabilities
   # GET /capabilities.json
   def index
-    @capabilities = Capability.all
+    @capabilities = Capability.all.order( :subcategory_id, :level, :id )
   end
 
   # GET /capabilities/1

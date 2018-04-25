@@ -2,6 +2,8 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   before_action :authorize
+  before_action :allow_iframe_requests
+  before_action :set_cache_headers
 
   def authorize
     if session[ :username ].nil? then
@@ -14,7 +16,7 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.all
+    @categories = Category.all.order( :goal_id, :id )
   end
 
   # GET /categories/1

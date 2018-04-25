@@ -1,6 +1,8 @@
 class RolesController < ApplicationController
   before_action :set_role, only: [:show, :edit, :update, :destroy]
 
+  before_action :allow_iframe_requests
+  before_action :set_cache_headers
   before_action :authorize
 
   def authorize
