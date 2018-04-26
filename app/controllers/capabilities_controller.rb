@@ -4,14 +4,6 @@ class CapabilitiesController < ApplicationController
   before_action :authorize
   before_action :allow_iframe_requests
   before_action :set_cache_headers
-
-  def authorize
-    if session[ :username ].nil? then
-      raise ApplicationController::NotAuthorized
-    else
-      @username = session[ :username ]
-    end
-  end
   
   # GET /capabilities
   # GET /capabilities.json

@@ -6,14 +6,6 @@ class LinksController < ApplicationController
 
   before_action :authorize
 
-  def authorize
-    if session[ :username ].nil? then
-      raise ApplicationController::NotAuthorized
-    else
-      @username = session[ :username ]
-    end
-  end
-
   # GET /links
   # GET /links.json
   def index

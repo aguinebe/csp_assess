@@ -23,6 +23,21 @@ class ApplicationController < ActionController::Base
     response.headers.delete('X-Frame-Options')
   end
 
+  def authorize
+    if session[ :username ].nil? then
+      raise ApplicationController::NotAuthorized
+    else
+      if session[:expires_at].nil? or session[:expires_at] < Time.current then
+        raise ApplicationController::NotAuthorized
+        session[ :username ] = nil
+      else
+        @username = session[ :username ]
+        session[:expires_at] = Time.current + 20.minutes
+        @expires_at = session[ :expires_at ]
+      end
+    end
+  end
+
   private
 
   def render_error_page(status:, text:, template: 'errors/routing')

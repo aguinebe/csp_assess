@@ -3,16 +3,9 @@ class LoginsController < ApplicationController
 
   # GET /logins
   # GET /logins.json
-
+  before_action :allow_iframe_requests
+  before_action :set_cache_headers
   before_action :authorize
-
-  def authorize
-    if session[ :username ].nil? then
-      raise ApplicationController::NotAuthorized
-    else
-      @username = session[ :username ]
-    end
-  end
 
   def index
     @logins = Login.all

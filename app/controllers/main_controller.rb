@@ -6,19 +6,11 @@ class MainController < ApplicationController
 	before_action :set_cache_headers
 	before_action :authorize, :except => [ :login, :index, :howtologin ]
 
-	def authorize
-		if session[ :username ].nil? then
-			raise ApplicationController::NotAuthorized
-		else
-			@username = session[ :username ]
-		end
-	end
-
 	def howtologin
 	end
 
 	def deleteplan
-		PlanCapability.where( plan: params[:plan] ).destroy_all
+		PlanCapability.where( plan: params[:plan], groupname: params[ :groupname ] ).destroy_all
 	end
 
 	def form
@@ -115,6 +107,8 @@ class MainController < ApplicationController
 
 		if @success then
 			session[ :username ] = @username
+			session[:expires_at] = Time.current + 20.minutes
+        	@expires_at = session[ :expires_at ]
 		else
 			session[ :username ] = nil
 			puts "Elapsed time: " + @elapsedtime

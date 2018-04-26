@@ -5,14 +5,6 @@ class RolesController < ApplicationController
   before_action :set_cache_headers
   before_action :authorize
 
-  def authorize
-    if session[ :username ].nil? then
-      raise ApplicationController::NotAuthorized
-    else
-      @username = session[ :username ]
-    end
-  end
-
   # GET /roles
   # GET /roles.json
   def index
